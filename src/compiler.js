@@ -4,6 +4,7 @@ const { Token, typeToken } = require('./token')
 let token = ""
 
 function program(){
+    console.log("program")
     switch(token.value){
         case 'void':
             console.log(token.tokenToString())
@@ -14,19 +15,20 @@ function program(){
             break
         default:
             typeId()
-            console.log(token.tokenToString())
             decl()
             break;
     }
 }
 
 function typeId(){
+    console.log("typeId")
     typeSpec()
     console.log(token.tokenToString())
     coincidir(new Token(typeToken.id, "ID"))
 }
 
 function decl(){
+    console.log("decl")
     if(token.value == "(")
         funcs()
     else
@@ -34,6 +36,7 @@ function decl(){
 }
 
 function typeSpec(){
+    console.log("typeSpec")
     console.log(token.tokenToString())
     switch(token.value){
         case 'int':
@@ -54,6 +57,7 @@ function typeSpec(){
 }
 
 function vars(){
+    console.log("vars")
     arrayDecl()
     varDeclinit()
     decList()
@@ -64,6 +68,7 @@ function vars(){
 }
 
 function arrayDecl(){
+    console.log("arrayDecl")
     if(token.value == "["){
         console.log(token.tokenToString())
         coincidir(new Token(typeToken.c_l, "["))
@@ -75,6 +80,7 @@ function arrayDecl(){
 }
 
 function varDeclinit(){
+    console.log("varDeclInit")
     if(token.value == "="){
         console.log(token.tokenToString())
         coincidir(new Token(typeToken.op_e, "="))
@@ -83,6 +89,7 @@ function varDeclinit(){
 }
 
 function decList(){
+    console.log("decList")
     if(token.value == ","){
         console.log(token.tokenToString())
         coincidir(new Token(typeToken.coma, ","))
@@ -91,6 +98,7 @@ function decList(){
 }
 
 function varNames(){
+    console.log("varNames")
     console.log(token.tokenToString)
     coincidir(new Token(typeToken.id, "ID"))
     console.log(token.tokenToString())
@@ -100,6 +108,7 @@ function varNames(){
 }
 
 function decl2(){
+    console.log("decl2")
     if(token.value == "void"){
         console.log(token.tokenToString())
         coincidir(typeToken.dt_v, "void")
@@ -114,6 +123,7 @@ function decl2(){
 }
 
 function funcs(){
+    console.log("funcs")
     console.log(token.tokenToString())
     coincidir(new Token(typeToken.p_l, "("))
     params()
@@ -124,6 +134,7 @@ function funcs(){
 }
 
 function funDecListPrima(){
+    console.log("funcDecListPrima")
     if((["int", "float", "char", "bool", "void"].some((item) => token.value == item))){
         funDecList()
         funDecListPrima()
@@ -131,6 +142,7 @@ function funDecListPrima(){
 }
 
 function funDecList(){
+    console.log("funDecList")
     if(token.value == "void"){
         console.log(token.tokenToString())
         coincidir(new Token(typeToken.dt_v, "void"))
@@ -149,6 +161,7 @@ function funDecList(){
 }
 
 function params(){
+    console.log("params")
     if((["int", "float", "char", "bool"].some((item) => token.value == item))){
         param()
         paramsPrima()
@@ -156,6 +169,7 @@ function params(){
 }
 
 function paramsPrima(){
+    console.log("paramsPrima")
     if(token.value == ","){
         console.log(token.tokenToString())
         coincidir(new Token(typeToken.coma, ","))
@@ -165,12 +179,14 @@ function paramsPrima(){
 }
 
 function param(){
+    console.log("param")
     typeSpec()
     console.log(token.tokenToString())
     coincidir(new Token(typeToken.id, "ID"))
 }
 
 function funcStmt(){
+    console.log("funcStmt")
     console.log(token.tokenToString())
     coincidir(new Token(typeToken.k_l, "{"))
     console.log(token.tokenToString())
@@ -181,6 +197,7 @@ function funcStmt(){
 }
 
 function returnStmt(){
+    console.log("returnStmt")
     if(token.value == "return"){
         console.log(token.tokenToString())
         coincidir(new Token(typeToken.ret, "RETURN"))
@@ -196,6 +213,7 @@ function returnStmt(){
 }
 
 function stmts(){
+    console.log("stmts")
     const is = ["if", "while", "for"].some((item) => token.value == item)
     if(token.type == typeToken.id || is){
         stmt()
@@ -204,6 +222,7 @@ function stmts(){
 }
 
 function stmt(){
+    console.log("stmt")
     if(token.value == "if")
         ifStmt()
     else if(token.value == "while")
@@ -215,16 +234,19 @@ function stmt(){
 }
 
 function exprStmt(){
+    console.log("exprStmt")
     expresion()
     console.log(token.tokenToString())
     coincidir(new Token(typeToken.p_c, ";"))
 }
 
 function expresion(){
+    console.log("expresion")
     assignement()
 }
 
 function assignement(){
+    console.log("assignement")
     if(token.type == typeToken.id){
         console.log(token.tokenToString())
         coincidir(new Token(typeToken.id, "ID"))
@@ -237,11 +259,13 @@ function assignement(){
 }
 
 function logicOr(){
+    console.log("logicOr")
     logicAnd()
     logicOrPrima()
 }
 
 function logicOrPrima(){
+    console.log("logicOrPrima")
     if(token.value == "||"){
         console.log(token.tokenToString())
         coincidir(new Token(typeToken.op_or))
@@ -251,11 +275,13 @@ function logicOrPrima(){
 }
 
 function logicAnd(){
+    console.log("logicAnd")
     equality()
     logicAndPrima()
 }
 
 function logicAndPrima(){
+    console.log("logicAndPrima")
     if(token.value == "&&"){
         console.log(token.tokenToString())
         coincidir(new Token(typeToken.op_and, "&&"))
@@ -265,11 +291,13 @@ function logicAndPrima(){
 }
 
 function equality(){
+    console.log("equality")
     comparison()
     equalityPrima()
 }
 
 function equalityPrima(){
+    console.log("equalityPrima")
     if(token.type == typeToken.op_de || token.type == typeToken.op_ee){
         compOper()
         comparison()
@@ -278,6 +306,7 @@ function equalityPrima(){
 }
 
 function compOper(){
+    console.log("compOper")
     console.log(token.tokenToString())
     if(token.type == typeToken.op_de)
         coincidir(new Token(typeToken.op_de, "!="))
@@ -286,11 +315,13 @@ function compOper(){
 }
 
 function comparison(){
+    console.log("comparison")
     term()
     comparisonPrima()
 }
 
 function comparisonPrima(){
+    console.log("comparisonPrima")
     if(([">",">=","<","<="].some((item) => token.value == item))){
         logicOperator()
         term()
@@ -299,6 +330,7 @@ function comparisonPrima(){
 }
 
 function logicOperator(){
+    console.log("logicOperator")
     switch(token.value){
         case '>':
             coincidir(new Token(typeToken.op_ma_t, ">"))
@@ -318,11 +350,13 @@ function logicOperator(){
 }
 
 function term(){
+    console.log("term")
     factor()
     termPrima()
 }
 
 function termPrima(){
+    console.log("termPrima")
     if(token.value == "-"){
         console.log(token.tokenToString())
         coincidir(new Token(typeToken.op_r, "-"))
@@ -338,11 +372,13 @@ function termPrima(){
 }
 
 function factor(){
+    console.log("factor")
     unary()
     factorPrima()
 }
 
 function factorPrima(){
+    console.log("program")
     if(token.value == "/"){
         console.log(token.tokenToString())
         coincidir(new Token(typeToken.op_r, "/"))
