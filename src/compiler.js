@@ -1,4 +1,3 @@
-const { ContextMenuCommandAssertions } = require('discord.js');
 const Scanner = require('./scanner')
 const scanner = new Scanner('test.c');
 const { Token, typeToken } = require('./token')
@@ -116,7 +115,7 @@ function funcs(){
     params()
     coincidir(new Token(typeToken.p_r, ")"))
     console.log(token.tokenToString())
-    stmt()
+    funcStmt()
     funDecListPrima()
 }
 
@@ -196,7 +195,8 @@ function returnStmt(){
 }
 
 function stmts(){
-    if(token.type == typeToken.id || (["if", "while", "for"].some((item) => token.value == item))){
+    const is = ["if", "while", "for"].some((item) => token.value == item)
+    if(token.type == typeToken.id || is){
         stmt()
         stmts()
     }
@@ -300,16 +300,16 @@ function comparisonPrima(){
 function logicOperator(){
     switch(token.value){
         case '>':
-            coincidir(new Token(typeToken.op_mayor, ">"))
+            coincidir(new Token(typeToken.op_ma_t, ">"))
             break;
         case '>=':
-            coincidir(new Token(typeToken.op_ma_t, ">="))
+            coincidir(new Token(typeToken.op_ma_e, ">="))
             break;
         case '<':
-            coincidir(new Token(typeToken.op_menor, "<"))
+            coincidir(new Token(typeToken.op_me_t, "<"))
             break;
         case '<=':
-            coincidir(new Token(typeToken.op_me_t, "<="))
+            coincidir(new Token(typeToken.op_me_e, "<="))
             break;
         default:
             error("deberia ser >, >=, < o <=")
@@ -317,39 +317,82 @@ function logicOperator(){
 }
 
 function term(){
-
+    factor()
+    termPrima()
 }
 
 function termPrima(){
-
+    if(token.value == "-"){
+        console.log(token.tokenToString())
+        coincidir(new Token(typeToken.op_r, "-"))
+        factor()
+        termPrima()
+    }
+    else if(token.value == "+"){
+        console.log(token.tokenToString())
+        coincidir(new Token(typeToken.op_r, "+"))
+        factor()
+        termPrima()
+    }
 }
 
 function factor(){
-
+    unary()
+    factorPrima()
 }
 
 function factorPrima(){
-
+    if(token.value == "/"){
+        console.log(token.tokenToString())
+        coincidir(new Token(typeToken.op_r, "/"))
+        unary()
+        factorPrima()
+    }
+    else if(token.value == "*"){
+        console.log(token.tokenToString())
+        coincidir(new Token(typeToken.op_r, "*"))
+        unary()
+        factorPrima()
+    }
 }
 
 function unary(){
-
+    if(token.type == typeToken.op_admi || token.type == typeToken.op_r){
+        unaryOp()
+        unary()
+    }
+    else
+        call()
 }
 
 function unaryOp(){
-
+    console.log(token.tokenToString())
+    if(token.type == typeToken.op_admi)
+        coincidir(new Token(typeToken.op_admi, "!"))
+    else
+        coincidir(new Token(typeToken.op_r, "-"))
 }
 
 function call(){
-
+    primary()
+    callFunc()
 }
 
 function callFunc(){
-
+    if(token.type == typeToken.p_l){ //( params ) | (vacio)
+        console.log(token.tokenToString())
+        coincidir(new Token(typeToken.p_l, "("))
+        params()
+        console.log(token.tokenToString())
+        coincidir(new Token(typeToken.p_l, ")"))
+    }
 }
 
 function primary(){
+    console.log(token.tokenToString())
+    if(token){
 
+    }
 }
 
 function ifStmt(){
