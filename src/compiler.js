@@ -257,6 +257,7 @@ function assignement(){
         }
         else{
             compOper()
+            coincidir(new Token(typeToken.v_n, "NUMBER"))
         }
     }
     else
@@ -370,7 +371,7 @@ function termPrima(){
     }
     else if(token.value == "+"){
         console.log(token.tokenToString())
-        coincidir(new Token(typeToken.op_r, "+"))
+        coincidir(new Token(typeToken.op_s, "+"))
         factor()
         termPrima()
     }
@@ -386,13 +387,13 @@ function factorPrima(){
     console.log("factorPrima")
     if(token.value == "/"){
         console.log(token.tokenToString())
-        coincidir(new Token(typeToken.op_r, "/"))
+        coincidir(new Token(typeToken.op_d, "/"))
         unary()
         factorPrima()
     }
     else if(token.value == "*"){
         console.log(token.tokenToString())
-        coincidir(new Token(typeToken.op_r, "*"))
+        coincidir(new Token(typeToken.op_m, "*"))
         unary()
         factorPrima()
     }
@@ -518,6 +519,7 @@ function forStmt(){
     coincidir(new Token(typeToken.p_r, ")"))
     console.log(token.tokenToString())
     coincidir(new Token(typeToken.k_l, "{"))
+    stmts()
     console.log(token.tokenToString())
     coincidir(new Token(typeToken.k_r, "}"))
 }
