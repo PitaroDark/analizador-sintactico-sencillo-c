@@ -1,4 +1,4 @@
-const { ConnectionService } = require('discord.js');
+const { ContextMenuCommandAssertions } = require('discord.js');
 const Scanner = require('./scanner')
 const scanner = new Scanner('test.c');
 const { Token, typeToken } = require('./token')
@@ -203,66 +203,113 @@ function stmts(){
 }
 
 function stmt(){
-
+    if(token.value == "if")
+        ifStmt()
+    else if(token.value == "while")
+        whileStmt()
+    else if(token.value == "for")
+        forExpr()
+    else
+        exprStmt()
 }
 
 function exprStmt(){
-
+    expresion()
+    console.log(token.tokenToString())
+    coincidir(new Token(typeToken.p_c, ";"))
 }
 
 function expresion(){
-
+    assignement()
 }
 
 function assignement(){
-
+    if(token.type == typeToken.id){
+        console.log(token.tokenToString())
+        coincidir(new Token(typeToken.id, "ID"))
+        console.log(token.tokenToString())
+        coincidir(new Token(typeToken.op_e, "="))
+        assignement()
+    }
+    else
+        logicOr()
 }
 
 function logicOr(){
-
+    logicAnd()
+    logicOrPrima()
 }
 
 function logicOrPrima(){
-
+    if(token.value == "||"){
+        console.log(token.tokenToString())
+        coincidir(new Token(typeToken.op_or))
+        logicAnd()
+        logicOrPrima()
+    }
 }
 
 function logicAnd(){
-
+    equality()
+    logicAndPrima()
 }
 
 function logicAndPrima(){
-
+    if(token.value == "&&"){
+        console.log(token.tokenToString())
+        coincidir(new Token(typeToken.op_and, "&&"))
+        equality()
+        logicAndPrima()
+    }
 }
 
 function equality(){
-
+    comparison()
+    equalityPrima()
 }
 
 function equalityPrima(){
-
+    if(token.type == typeToken.op_de || token.type == typeToken.op_ee){
+        compOper()
+        comparison()
+        equalityPrima()
+    }
 }
 
 function compOper(){
-
+    console.log(token.tokenToString())
+    if(token.type == typeToken.op_de)
+        coincidir(new Token(typeToken.op_de, "!="))
+    else
+        coincidir(new Token(typeToken.op_ee, "=="))
 }
 
 function comparison(){
-
+    term()
+    comparisonPrima()
 }
 
 function comparisonPrima(){
-
+    if(([">",">=","<","<="].some((item) => token.value == item))){
+        logicOperator()
+        term()
+        comparisonPrima()
+    }
 }
 
 function logicOperator(){
     switch(token.value){
         case '>':
+            coincidir(new Token(typeToken.op_mayor, ">"))
             break;
         case '>=':
+            coincidir(new Token(typeToken.op_ma_t, ">="))
             break;
         case '<':
+            coincidir(new Token(typeToken.op_menor, "<"))
             break;
         case '<=':
+            coincidir(new Token(typeToken.op_me_t, "<="))
             break;
         default:
             error("deberia ser >, >=, < o <=")
