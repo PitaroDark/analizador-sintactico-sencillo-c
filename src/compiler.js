@@ -378,7 +378,7 @@ function factor(){
 }
 
 function factorPrima(){
-    console.log("program")
+    console.log("factorPrima")
     if(token.value == "/"){
         console.log(token.tokenToString())
         coincidir(new Token(typeToken.op_r, "/"))
@@ -394,6 +394,7 @@ function factorPrima(){
 }
 
 function unary(){
+    console.log("unary")
     if(token.type == typeToken.op_admi || token.type == typeToken.op_r){
         unaryOp()
         unary()
@@ -403,6 +404,7 @@ function unary(){
 }
 
 function unaryOp(){
+    console.log("unaryOp")
     console.log(token.tokenToString())
     if(token.type == typeToken.op_admi)
         coincidir(new Token(typeToken.op_admi, "!"))
@@ -411,11 +413,13 @@ function unaryOp(){
 }
 
 function call(){
+    console.log("call")
     primary()
     callFunc()
 }
 
 function callFunc(){
+    console.log("callFunc")
     if(token.type == typeToken.p_l){ //( params ) | (vacio)
         console.log(token.tokenToString())
         coincidir(new Token(typeToken.p_l, "("))
@@ -426,6 +430,7 @@ function callFunc(){
 }
 
 function primary(){
+    console.log("primary")
     console.log(token.tokenToString())
     if(token.value == "true")
         coincidir(new Token(typeToken.v_t, "true"))
@@ -446,6 +451,7 @@ function primary(){
 }
 
 function ifStmt(){
+    console.log("ifStmt")
     console.log(token.tokenToString())
     coincidir(new Token(typeToken.f_if, "if"))
     console.log(token.tokenToString())
@@ -462,6 +468,7 @@ function ifStmt(){
 }
 
 function elseStmt(){
+    console.log("elseStmt")
     if(token.value == "else"){
         console.log(token.tokenToString())
         coincidir(new Token(typeToken.f_else, "else"))
@@ -474,6 +481,7 @@ function elseStmt(){
 }
 
 function whileStmt(){
+    console.log("whileStmt")
     console.log(token.tokenToString())
     coincidir(new Token(typeToken.b_wh, "while"))
     console.log(token.tokenToString())
@@ -489,6 +497,7 @@ function whileStmt(){
 }
 
 function forStmt(){
+    console.log("forStmt")
     console.log(token.tokenToString())
     coincidir(new Token(typeToken.b_f, "for"))
     console.log(token.tokenToString())
@@ -509,6 +518,7 @@ function forStmt(){
 }
 
 function forExpr(){
+    console.log("forExpr")
     if(token.type = typeToken.id)
         expresion()
 }
