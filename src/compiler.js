@@ -7,7 +7,8 @@ function program(){
     switch(token.value){
         case 'void':
             console.log(token.tokenToString())
-            token = scanner.nextToken()
+            coincidir(new Token(typeToken.dt_v, "void"))
+            console.log(token.tokenToString())
             coincidir(new Token(typeToken.id, "id"))
             funcs()
             break
@@ -130,21 +131,20 @@ function funDecListPrima(){
 }
 
 function funDecList(){
-    console.log(token.tokenToString())
-    if(token.value == "void")
+    if(token.value == "void"){
+        console.log(token.tokenToString())
         coincidir(new Token(typeToken.dt_v, "void"))
+    }
     else{
         typeSpec()
-        token = scanner.nextToken()
     }
     console.log(token.tokenToString())
     coincidir(new Token(typeToken.id, "ID"))
     console.log(token.tokenToString())
     coincidir(new Token(typeToken.p_l, "("))
-    console.log(token.tokenToString())
     params()
-    coincidir(new Token(typeToken.p_r, ")"))
     console.log(token.tokenToString())
+    coincidir(new Token(typeToken.p_r, ")"))
     funcStmt()
 }
 
@@ -166,8 +166,6 @@ function paramsPrima(){
 
 function param(){
     typeSpec()
-    console.log(token.tokenToString())
-    token = scanner.nextToken()
     console.log(token.tokenToString())
     coincidir(new Token(typeToken.id, "ID"))
 }
