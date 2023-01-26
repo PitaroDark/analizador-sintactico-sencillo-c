@@ -477,9 +477,8 @@ function forStmt(){
 }
 
 function forExpr(){
-    if(true){
-
-    }
+    if(token.type = typeToken.id)
+        expresion()
 }
 
 function coincidir(tkn){
