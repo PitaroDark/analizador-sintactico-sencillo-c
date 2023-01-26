@@ -35,14 +35,19 @@ function decl(){
 }
 
 function typeSpec(){
+    console.log(token.tokenToString())
     switch(token.value){
         case 'int':
+            coincidir(new Token(typeToken.dt_i))
             break;
         case 'char':
+            coincidir(new Token(typeToken.dt_c))
             break;
         case 'bool':
+            coincidir(new Token(typeToken.dt_b))
             break;
         case 'float':
+            coincidir(new Token(typeToken.dt_f))
             break;
         default:
             error("deberia ser int, char, bool o float")
@@ -110,11 +115,11 @@ function decl2(){
 }
 
 function funcs(){
+    console.log(token.tokenToString())
     coincidir(new Token(typeToken.p_l, "("))
-    console.log(token.tokenToString())
     params()
-    coincidir(new Token(typeToken.p_r, ")"))
     console.log(token.tokenToString())
+    coincidir(new Token(typeToken.p_r, ")"))
     funcStmt()
     funDecListPrima()
 }
@@ -208,7 +213,7 @@ function stmt(){
     else if(token.value == "while")
         whileStmt()
     else if(token.value == "for")
-        forExpr()
+        forStmt()
     else
         exprStmt()
 }
@@ -452,11 +457,29 @@ function whileStmt(){
 }
 
 function forStmt(){
-
+    console.log(token.tokenToString())
+    coincidir(new Token(typeToken.b_f, "for"))
+    console.log(token.tokenToString())
+    coincidir(new Token(typeToken.p_l, "("))
+    forExpr()
+    console.log(token.tokenToString())
+    coincidir(new Token(typeToken.p_c, ";"))
+    console.log(token.tokenToString())
+    forExpr()
+    coincidir(new Token(typeToken.p_c, ";"))
+    forExpr()
+    console.log(token.tokenToString())
+    coincidir(new Token(typeToken.p_r, ")"))
+    console.log(token.tokenToString())
+    coincidir(new Token(typeToken.k_l, "{"))
+    console.log(token.tokenToString())
+    coincidir(new Token(typeToken.k_r, "}"))
 }
 
 function forExpr(){
+    if(true){
 
+    }
 }
 
 function coincidir(tkn){
