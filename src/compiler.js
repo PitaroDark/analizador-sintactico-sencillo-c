@@ -250,9 +250,14 @@ function assignement(){
     if(token.type == typeToken.id){
         console.log(token.tokenToString())
         coincidir(new Token(typeToken.id, "ID"))
-        console.log(token.tokenToString())
-        coincidir(new Token(typeToken.op_e, "="))
-        assignement()
+        if(token.type == typeToken.op_e){
+            console.log(token.tokenToString())
+            coincidir(new Token(typeToken.op_e, "="))
+            assignement()
+        }
+        else{
+            compOper()
+        }
     }
     else
         logicOr()

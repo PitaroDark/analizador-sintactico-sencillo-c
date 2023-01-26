@@ -51,6 +51,16 @@ class Scanner{
                     return new Token(typeToken.op_and, lexema)
                 case "||":
                     return new Token(typeToken.op_or, lexema)
+                case ">":
+                    return new Token(typeToken.op_ma_t, lexema)
+                case ">=":
+                    return new Token(typeToken.op_ma_e, lexema)
+                case "<":
+                    return new Token(typeToken.op_me_t, lexema)
+                case "<=":
+                    return new Token(typeToken.op_me_e, lexema)
+                case "!":
+                    return new Token(typeToken.op_admi, lexema)
                 case "true":
                     return new Token(typeToken.v_t, lexema)
                 case "false":
