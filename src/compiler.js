@@ -22,8 +22,6 @@ function program(){
 function typeId(){
     typeSpec()
     console.log(token.tokenToString())
-    token = scanner.nextToken()
-    console.log(token.tokenToString())
     coincidir(new Token(typeToken.id, "ID"))
 }
 
