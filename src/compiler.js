@@ -135,7 +135,7 @@ function funcs(){
 
 function funDecListPrima(){
     console.log("funcDecListPrima")
-    if((["int", "float", "char", "bool", "void"].some((item) => token.value == item))){
+    if((token && ["int", "float", "char", "bool", "void"].some((item) => token.value == item))){
         funDecList()
         funDecListPrima()
     }
@@ -256,7 +256,11 @@ function assignement(){
             assignement()
         }
         else{
-            compOper()
+            const is = ["==", "!="].some((item) => token.value == item)
+            if(is)
+                compOper()
+            else
+                logicOperator()
             coincidir(new Token(typeToken.v_n, "NUMBER"))
         }
     }
