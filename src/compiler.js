@@ -390,21 +390,65 @@ function callFunc(){
 
 function primary(){
     console.log(token.tokenToString())
-    if(token){
-
+    if(token.value == "true")
+        coincidir(new Token(typeToken.v_t, "true"))
+    else if(token.value == "false")
+        coincidir(new Token(typeToken.v_f, "false"))
+    else if(token.type == typeToken.v_n)
+        coincidir(new Token(typeToken.v_n, "number"))
+    else if(token.type == typeToken.v_str)
+        coincidir(new Token(typeToken.v_str, "string"))
+    else if(token.type == typeToken.id)
+        coincidir(new Token(typeToken.id, "id"))
+    else{
+        coincidir(new Token(typeToken.p_l, "("))
+        expresion()
+        console.log(token.tokenToString())
+        coincidir(new Token(typeToken.p_r, ")"))
     }
 }
 
 function ifStmt(){
-
+    console.log(token.tokenToString())
+    coincidir(new Token(typeToken.f_if, "if"))
+    console.log(token.tokenToString())
+    coincidir(new Token(typeToken.p_l, "("))
+    expresion()
+    console.log(token.tokenToString())
+    coincidir(new Token(typeToken.p_r, ")"))
+    console.log(token.tokenToString())
+    coincidir(new Token(typeToken.k_l, "{"))
+    stmts()
+    console.log(token.tokenToString())
+    coincidir(new Token(typeToken.k_r, "}"))
+    elseStmt()
 }
 
 function elseStmt(){
-
+    if(token.value == "else"){
+        console.log(token.tokenToString())
+        coincidir(new Token(typeToken.f_else, "else"))
+        console.log(token.tokenToString())
+        coincidir(new Token(typeToken.k_l, "{"))
+        stmts()
+        console.log(token.tokenToString())
+        coincidir(new Token(typeToken.k_r, "}"))
+    }
 }
 
 function whileStmt(){
-
+    console.log(token.tokenToString())
+    coincidir(new Token(typeToken.b_wh, "while"))
+    console.log(token.tokenToString())
+    coincidir(new Token(typeToken.p_l, "("))
+    expresion()
+    console.log(token.tokenToString())
+    coincidir(new Token(typeToken.p_r, ")"))
+    console.log(token.tokenToString())
+    coincidir(new Token(typeToken.k_l, "{"))
+    stmts()
+    console.log(token.tokenToString())
+    coincidir(new Token(typeToken.k_r, "}"))
 }
 
 function forStmt(){
